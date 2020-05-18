@@ -3,8 +3,10 @@ package com.example.app;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
 
@@ -26,7 +28,8 @@ public class MainActivity extends Activity {
          WebSettings settings = mWebView.getSettings();
          settings.setJavaScriptEnabled(true);
 
-         mWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
+         mWebView.addJavascriptInterface(new WebAppInterface(this, mWebView), "Android");
+         WebView.setWebContentsDebuggingEnabled(true);
     }
 
     @Override
@@ -36,5 +39,9 @@ public class MainActivity extends Activity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void onTriggerPressed(View view) {
+        this.mWebView.loadUrl("javascript:onAndroidMessage('testEvent', 'Pressed successfully')");
     }
 }
