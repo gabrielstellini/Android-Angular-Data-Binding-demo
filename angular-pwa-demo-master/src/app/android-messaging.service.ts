@@ -19,7 +19,6 @@ export class AndroidMessagingService {
   handleWindowMessage(eventPayload: eventPayload) {
     if (eventPayload) {
       this.listeners.forEach(listener => {
-        debugger;
         listener.onMessage(eventPayload)
       })
     }
